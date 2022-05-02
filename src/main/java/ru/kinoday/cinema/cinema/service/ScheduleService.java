@@ -6,5 +6,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface ScheduleService {
-    List<ScheduleElement> getMovies(Timestamp dateFrom);
+    List<ScheduleElement> getSchedule(Timestamp dateFrom);
+    List<ScheduleElement> getAllScheduled();
+    void addSchedule(ScheduleElement element);
+    void editSchedule(ScheduleElement element);
 }

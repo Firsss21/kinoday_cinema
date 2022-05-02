@@ -22,4 +22,12 @@ public class Cinema {
 
     @Column
     String name;
+
+
+    public Cinema(List<CinemaHall> cinemaHallList, String description, String imagePath, String name) {
+        this.cinemaHallList = cinemaHallList;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.name = name;
+    }
 }

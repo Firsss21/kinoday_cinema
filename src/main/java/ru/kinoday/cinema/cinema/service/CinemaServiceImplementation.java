@@ -16,4 +16,14 @@ public class CinemaServiceImplementation implements CinemaService {
     public Cinema getCinemaById(Long id) {
         return null;
     }
+
+    @Override
+    public void addCinema(Cinema cinema) {
+
+    }
+
+    @Override
+    public void editCinema(Cinema cinema) {
+
+    }
 }

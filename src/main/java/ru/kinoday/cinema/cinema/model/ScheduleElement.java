@@ -27,11 +27,8 @@ public class ScheduleElement {
     @JoinColumn(name = "movie_id")
     Movie movie;
 
-    @Column
-    Restrictions[] restrictions;
-
-//    @Column
-//    Format format;
+    @Enumerated(EnumType.STRING)
+    Format format;
 
     @Column
     int price;

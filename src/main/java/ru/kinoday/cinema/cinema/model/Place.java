@@ -1,9 +1,29 @@
 package ru.kinoday.cinema.cinema.model;
 
-import lombok.Value;
+import lombok.*;
 
-@Value
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import java.io.Serializable;
+
+@Data
+@Entity
+@AllArgsConstructor
 public class Place {
-    int place;
-    int row;
+    @EmbeddedId
+    private PlaceId placeId;
+
+    public Place(int row, int place) {
+        this.placeId = new PlaceId(place, row);
+    }
+
+    public int getRow() {
+        return this.placeId.getRow();
+    }
+
+    public int getPlace() {
+        return this.placeId.getPlace();
+    }
 }
+

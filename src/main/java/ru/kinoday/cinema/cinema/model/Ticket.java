@@ -6,15 +6,15 @@ import javax.persistence.*;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")
-    ScheduleElement scheduled;
+    private ScheduleElement scheduled;
 
-//    @Column
-//    Place place;
+    @OneToOne
+    private Place place;
 
-//    @Column
-//    TicketType type;
+    @Enumerated(EnumType.STRING)
+    private TicketType type;
 }

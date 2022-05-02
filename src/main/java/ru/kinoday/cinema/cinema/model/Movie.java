@@ -1,5 +1,7 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.Getter;
+import lombok.Value;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,28 +9,29 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
+@Getter
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private int id;
 
     @Column
-    String name;
+    private String name;
 
     @Column
-    String description;
+    private String description;
 
     @Column(name = "image_path")
-    String mainImagePath;
+    private String mainImagePath;
 
-//    @Column
-//    Genre genre;
-
-    @Column
-    String country;
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
 
     @Column
-    Timestamp date;
+    private String country;
+
+    @Column
+    private String year;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,17 +39,31 @@ public class Movie {
     private Date added;
 
     @Column
-    Long duration;
+    private Long duration;
 
     @Column
-    String director;
+    private String director;
 
     @Column(name = "description_images")
-    String[] descriptionImages;
+    private String[] descriptionImages;
 
     @Column
-    String trailer;
+    private String trailer;
 
     @Column(name = "age_rating")
-    int ageRating;
+    private int ageRating;
+
+    public Movie(String name, String description, String mainImagePath, Genre genre, String country, String year, Long duration, String director, String[] descriptionImages, String trailer, int ageRating) {
+        this.name = name;
+        this.description = description;
+        this.mainImagePath = mainImagePath;
+        this.genre = genre;
+        this.country = country;
+        this.year = year;
+        this.duration = duration;
+        this.director = director;
+        this.descriptionImages = descriptionImages;
+        this.trailer = trailer;
+        this.ageRating = ageRating;
+    }
 }
