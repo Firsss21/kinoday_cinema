@@ -1,6 +1,7 @@
 package ru.kinoday.cinema.cinema.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,15 +11,16 @@ import java.util.Date;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Column
     private String name;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @Column(name = "image_path")
@@ -53,7 +55,10 @@ public class Movie {
     @Column(name = "age_rating")
     private int ageRating;
 
-    public Movie(String name, String description, String mainImagePath, Genre genre, String country, String year, Long duration, String director, String[] descriptionImages, String trailer, int ageRating) {
+    @Column(name = "kp_id")
+    private int kinopoiskId;
+
+    public Movie(String name, String description, String mainImagePath, Genre genre, String country, String year, Long duration, String director, String[] descriptionImages, String trailer, int ageRating, int kinopoiskId) {
         this.name = name;
         this.description = description;
         this.mainImagePath = mainImagePath;
@@ -65,5 +70,6 @@ public class Movie {
         this.descriptionImages = descriptionImages;
         this.trailer = trailer;
         this.ageRating = ageRating;
+        this.kinopoiskId = kinopoiskId;
     }
 }

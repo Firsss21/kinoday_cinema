@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Place {
     @EmbeddedId
     private PlaceId placeId;

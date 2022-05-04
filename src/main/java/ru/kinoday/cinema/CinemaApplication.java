@@ -39,17 +39,13 @@ public class CinemaApplication {
 			) {
 		return args -> {
 
-			for (int x = 1; x <= 30; x++) {
-				for (int y = 1; y <= 30; y++) {
-					placeService.addPlace(x,y);
-				}
-			}
 			List<CinemaHall> big = List.of(
 				cinemaHallService.addCinemaHall(new CinemaHall("01", CinemaHallType.BIG, placeService.getPlacesForHallType(CinemaHallType.BIG), Set.of(Format.type_3D_IMAX, Format.type_2D_ATMOS, Format.type_3D_ATMOS))),
 				cinemaHallService.addCinemaHall(new CinemaHall("02", CinemaHallType.VIP, placeService.getPlacesForHallType(CinemaHallType.VIP), Set.of(Format.type_3D_ATMOS, Format.type_2D_ATMOS))),
 				cinemaHallService.addCinemaHall(new CinemaHall("03", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_3D, Format.type_2D))),
 				cinemaHallService.addCinemaHall(new CinemaHall("04", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_2D, Format.type_2D_ATMOS)))
 			);
+
 			List<CinemaHall> medium = List.of(
 				cinemaHallService.addCinemaHall(new CinemaHall("01", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_2D_ATMOS, Format.type_2D))),
 				cinemaHallService.addCinemaHall(new CinemaHall("02", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_3D, Format.type_2D))),
@@ -60,9 +56,18 @@ public class CinemaApplication {
 				cinemaHallService.addCinemaHall(new CinemaHall("01", CinemaHallType.SMALL, placeService.getPlacesForHallType(CinemaHallType.SMALL), Set.of(Format.type_2D, Format.type_2D_ATMOS))),
 				cinemaHallService.addCinemaHall(new CinemaHall("02", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_2D, Format.type_3D)))
 			);
-			cinemaService.addCinema(new Cinema(big, "Самый крупный кинотеатр в городе!", "empty", "Пушкарион"));
-			cinemaService.addCinema(new Cinema(medium, "Крутой кинотеатр прям то шо надо!", "empty", "Кино-Тор"));
-			cinemaService.addCinema(new Cinema(small, "Малый да удалый!", "empty", "КиноКорн"));
+			Cinema bigCinema = new Cinema(big, "Самый крупный кинотеатр в городе!", "empty", "Пушкарион");
+			cinemaService.addCinema(bigCinema);
+			bigCinema = cinemaService.getAllCinema().get(0);
+
+			Cinema mediumCinema = new Cinema(medium, "Крутой кинотеатр прям то шо надо!", "empty", "Кино-Тор");
+			cinemaService.addCinema(mediumCinema);
+			mediumCinema = cinemaService.getAllCinema().get(1);
+
+			Cinema smallCinema = new Cinema(small, "Малый да удалый!", "empty", "КиноКорн");
+			cinemaService.addCinema(smallCinema);
+			smallCinema = cinemaService.getAllCinema().get(2);
+
 
 			movieService.addMovie(new Movie("Побег из Шоушенка",
 					"Бухгалтер Энди Дюфрейн обвинён в убийстве собственной жены и её любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решётки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой, находит подход как к заключённым, так и к охранникам, добиваясь их особого к себе расположения.",
@@ -74,7 +79,8 @@ public class CinemaApplication {
 					"Фрэнк Дарабонт",
 					new String[]{""},
 					"skip",
-					16
+					16,
+                    326
 					));
 
 			movieService.addMovie(new Movie("Зеленая миля",
@@ -87,7 +93,8 @@ public class CinemaApplication {
 					"Фрэнк Дарабонт",
 					new String[]{""},
 					"skip",
-					16
+					16,
+                    435
 			));
 
 			movieService.addMovie(new Movie("Форрест Гамп",
@@ -100,7 +107,8 @@ public class CinemaApplication {
 					"Роберт Земекис",
 					new String[]{""},
 					"skip",
-					16
+					16,
+                    448
 			));
 			movieService.addMovie(new Movie("1+1",
 					"Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.",
@@ -112,7 +120,8 @@ public class CinemaApplication {
 					"Оливье Накаш",
 					new String[]{""},
 					"skip",
-					16
+					16,
+                    535341
 			));
 			movieService.addMovie(new Movie("Криминальное чтиво",
 					"Двое бандитов Винсент Вега и Джулс Винфилд ведут философские беседы в перерывах между разборками и решением проблем с должниками криминального босса Марселласа Уоллеса. В первой истории Винсент проводит незабываемый вечер с женой Марселласа Мией. Во второй рассказывается о боксёре Бутче Кулидже, купленном Уоллесом, чтобы сдать бой. В третьей истории Винсент и Джулс по нелепой случайности попадают в неприятности.",
@@ -124,13 +133,47 @@ public class CinemaApplication {
 					"Квентин Тарантино",
 					new String[]{""},
 					"skip",
-					18
+					18,
+                    342
 			));
 
 			// schedule
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            // create schedule po vsem filmam vo vseh kinozalah,
+
 
 			// tickets
 
+			// para for example
+
+			// build расписания
 		};
 	}
 }

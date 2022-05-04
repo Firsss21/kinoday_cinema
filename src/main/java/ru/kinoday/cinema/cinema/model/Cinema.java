@@ -1,27 +1,34 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Cinema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Column(name = "cinema_hall_list")
     @OneToMany
-    List<CinemaHall> cinemaHallList;
+    private List<CinemaHall> cinemaHallList;
 
     @Column
-    String description;
+    private String description;
 
     @Column(name = "image_path")
-    String imagePath;
+    private String imagePath;
 
     @Column
-    String name;
+    private String name;
 
 
     public Cinema(List<CinemaHall> cinemaHallList, String description, String imagePath, String name) {
@@ -29,5 +36,9 @@ public class Cinema {
         this.description = description;
         this.imagePath = imagePath;
         this.name = name;
+    }
+    public List<CinemaHall> getCinemaHallList() {
+        Hibernate.initialize(cinemaHallList);
+        return cinemaHallList;
     }
 }

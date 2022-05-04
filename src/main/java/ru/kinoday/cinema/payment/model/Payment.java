@@ -8,6 +8,6 @@ import javax.persistence.Id;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     long id;
 }

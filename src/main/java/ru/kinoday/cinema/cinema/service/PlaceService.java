@@ -23,11 +23,11 @@ public class PlaceService {
     private PlaceRepository repo;
 
 
-    public void addPlace(Place place) {
+    private void addPlace(Place place) {
         repo.save(place);
     }
 
-    public void addPlace(int row, int place) {
+    private void addPlace(int row, int place) {
         repo.save(new Place(row, place));
     }
 
@@ -70,8 +70,8 @@ public class PlaceService {
             }
         }
 
-        for (int x = 0; x < places; x++) {
-            for (int y = 0; y < rows; y++) {
+        for (int x = 1; x <= places; x++) {
+            for (int y = 1; y <= rows; y++) {
                 result.add(getPlace(y, x));
             }
         }

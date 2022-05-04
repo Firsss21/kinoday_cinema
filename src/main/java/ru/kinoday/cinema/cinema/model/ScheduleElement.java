@@ -1,16 +1,18 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@NoArgsConstructor
 public class ScheduleElement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Long id;
 
     @Column
     Timestamp time;
@@ -32,4 +34,13 @@ public class ScheduleElement {
 
     @Column
     int price;
+
+    public ScheduleElement(Timestamp time, Cinema cinema, CinemaHall hall, Movie movie, Format format, int price) {
+        this.time = time;
+        this.cinema = cinema;
+        this.hall = hall;
+        this.movie = movie;
+        this.format = format;
+        this.price = price;
+    }
 }

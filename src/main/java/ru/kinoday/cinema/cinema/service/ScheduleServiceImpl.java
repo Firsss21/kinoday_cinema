@@ -13,13 +13,15 @@ import java.util.List;
 public class ScheduleServiceImpl implements ScheduleService {
 
     private ScheduleRepository repo;
+
     @Override
     public List<ScheduleElement> getSchedule(Timestamp dateFrom) {
+        return repo.findAllByTimeAfterOrderByTime(dateFrom);
     }
 
     @Override
     public List<ScheduleElement> getAllScheduled() {
-        return null;
+        return repo.findAll();
     }
 
     @Override

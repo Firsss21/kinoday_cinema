@@ -2,10 +2,12 @@ package ru.kinoday.cinema.cinema.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.MovieRepository;
 import ru.kinoday.cinema.cinema.model.Movie;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +33,19 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Cacheable(value = "movie")
-    public Movie getMovie(long id) {
-        return repo.findById(id).orElse(null);
+    public Movie getMovie(long id) { return repo.findById(id).orElse(null); }
+
+    @Cacheable(value = "movie")
+    public Movie getMovie(String name) { return repo.findByName(name).orElse(null); }
+
+    @Override
+    public List<Movie> getMovies() {
+        return repo.findAll();
     }
+
+    @Override
+    public List<Movie> getLastMovies(int count) {
+        return repo.getLastMovies(PageRequest.of(0, count));
+    }
+
 }
