@@ -1,8 +1,11 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

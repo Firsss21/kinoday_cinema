@@ -1,11 +1,9 @@
 package ru.kinoday.cinema.cinema.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kinoday.cinema.cinema.model.Schedule;
+import ru.kinoday.cinema.cinema.model.Show;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 import ru.kinoday.cinema.cinema.service.ScheduleService;
 
@@ -27,5 +25,11 @@ public class ScheduleController {
         Schedule schedule = scheduleService.getSchedule(from, to, id);
 
         return schedule;
+    }
+
+    @GetMapping("/{id}")
+    public Show getShow(@PathVariable("{id}") long id) {
+        System.out.println(scheduleService.getShow(id));
+        return scheduleService.getShow(id);
     }
 }

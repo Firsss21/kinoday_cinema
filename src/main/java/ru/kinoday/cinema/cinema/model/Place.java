@@ -7,10 +7,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
-@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class Place {
     @EmbeddedId
     private PlaceId placeId;
@@ -27,4 +28,5 @@ public class Place {
         return this.placeId.getPlace();
     }
 }
+
 

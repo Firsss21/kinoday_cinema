@@ -6,4 +6,5 @@ public enum TicketType {
     PURCHASED,
     USED,
     EXPIRED,
+    AVAILABLE,
 }
