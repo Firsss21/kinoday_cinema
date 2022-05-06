@@ -1,5 +1,7 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.criterion.Restrictions;
 
@@ -8,6 +10,7 @@ import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class ScheduleElement {
 
     @Id

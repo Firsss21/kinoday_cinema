@@ -138,34 +138,30 @@ public class CinemaApplication {
 			));
 
 			// schedule
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
-
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 10:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 12:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
-			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-04 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 10:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 12:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+            scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 10:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 12:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie("Форрест Гамп"), Format.type_3D_ATMOS, 300));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 10:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 12:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie("Криминальное чтиво"), Format.type_2D_ATMOS, 500));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
+			scheduleService.addSchedule(new ScheduleElement(Timestamp.valueOf("2022-05-06 14:00:00.0"), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie("1+1"), Format.type_2D_ATMOS, 400));
             // create schedule po vsem filmam vo vseh kinozalah,
 
 
