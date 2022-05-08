@@ -12,8 +12,6 @@ public interface ScheduleService {
     Schedule getSchedule(Timestamp from, Timestamp to, long cinemaId);
     Show getShow(long id);
 
-
-
     void addSchedule(ScheduleElement element);
     List<ScheduleElement> getAllScheduled();
     void editSchedule(ScheduleElement element);

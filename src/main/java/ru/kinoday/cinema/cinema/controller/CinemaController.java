@@ -23,7 +23,7 @@ public class CinemaController {
     }
 
     @GetMapping(value = "/{id}")
-    public Cinema getById(@PathVariable("id") Long id) {
+    public Cinema getById(@PathVariable Long id) {
         return cinemaService.getCinemaById(id);
     }
 

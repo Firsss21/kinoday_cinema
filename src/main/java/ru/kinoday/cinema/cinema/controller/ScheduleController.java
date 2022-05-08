@@ -27,9 +27,10 @@ public class ScheduleController {
         return schedule;
     }
 
-    @GetMapping("/{id}")
-    public Show getShow(@PathVariable("{id}") long id) {
-        System.out.println(scheduleService.getShow(id));
+    @GetMapping(value = "/{id}")
+    public Show getShow(
+            @PathVariable long id
+    ) {
         return scheduleService.getShow(id);
     }
 }
