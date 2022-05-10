@@ -57,22 +57,22 @@ public class CinemaApplication {
 				cinemaHallService.addCinemaHall(new CinemaHall("01", CinemaHallType.SMALL, placeService.getPlacesForHallType(CinemaHallType.SMALL), Set.of(Format.type_2D, Format.type_2D_ATMOS))),
 				cinemaHallService.addCinemaHall(new CinemaHall("02", CinemaHallType.MEDIUM, placeService.getPlacesForHallType(CinemaHallType.MEDIUM), Set.of(Format.type_2D, Format.type_3D)))
 			);
-			Cinema bigCinema = new Cinema(big, "Самый крупный кинотеатр в городе!", "empty", "Пушкарион");
+			Cinema bigCinema = new Cinema(big, "Ретроградный кинотеатр в высотке на Котельнической набережной пережил капитальный ремонт — но шарма своего не растерял. На улице все та же вывеска, внутри — все те же люстры, лепнина и кинозал, в котором в ежедневном режиме можно посмотреть фильмы Госфильмофонда.", "/images/cinema/illusion.jpg", "Иллюзион");
 			cinemaService.addCinema(bigCinema);
 			bigCinema = cinemaService.getAllCinema().get(0);
 
-			Cinema mediumCinema = new Cinema(medium, "Крутой кинотеатр прям то шо надо!", "empty", "Кино-Тор");
+			Cinema mediumCinema = new Cinema(medium, "«Художественный» — старейший столичный кинотеатр, открытый в 1909 году. Здание кинотеатра было спроектировано архитектором Николаем Благовещенским специально для показа фильмов, а позднее перестроено Федором Шехтелем. Это памятник архитектуры модерна и объект культурного наследия регионального значения. ", "/images/cinema/xydojestvenniy.jpg", "Художественный");
 			cinemaService.addCinema(mediumCinema);
 			mediumCinema = cinemaService.getAllCinema().get(1);
 
-			Cinema smallCinema = new Cinema(small, "Малый да удалый!", "empty", "КиноКорн");
+			Cinema smallCinema = new Cinema(small, "Перестроенный советский «Пионер» сделан по западным образцам жанра — кино на родном языке с субтитрами, лавочка с орешками и кофе вместо поп-корна, приличное кафе и книжный магазин как бонус.", "/images/cinema/pioner.jpg", "Пионер");
 			cinemaService.addCinema(smallCinema);
 			smallCinema = cinemaService.getAllCinema().get(2);
 
 
 			movieService.addMovie(new Movie("Побег из Шоушенка",
 					"Бухгалтер Энди Дюфрейн обвинён в убийстве собственной жены и её любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решётки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой, находит подход как к заключённым, так и к охранникам, добиваясь их особого к себе расположения.",
-					"empty",
+					"/images/movie/shoushenk	.webp",
 					Genre.DRAMA,
 					"США",
 					"1994",
@@ -86,7 +86,7 @@ public class CinemaApplication {
 
 			movieService.addMovie(new Movie("Зеленая миля",
 					"В тюрьме для смертников появляется заключенный с божественным даром. Мистическая драма по роману Стивена Кинга",
-					"empty",
+					"/images/movie/green_mile.webp",
 					Genre.DRAMA,
 					"США",
 					"1999",
@@ -100,7 +100,7 @@ public class CinemaApplication {
 
 			movieService.addMovie(new Movie("Форрест Гамп",
 					"Сидя на автобусной остановке, Форрест Гамп — не очень умный, но добрый и открытый парень — рассказывает случайным встречным историю своей необыкновенной жизни. С самого малолетства он страдал от заболевания ног, и соседские хулиганы дразнили мальчика, и в один прекрасный день Форрест открыл в себе невероятные способности к бегу. Подруга детства Дженни всегда его поддерживала и защищала, но вскоре дороги их разошлись",
-					"empty",
+					"/images/movie/forest.webp",
 					Genre.DRAMA,
 					"США",
 					"1994",
@@ -113,7 +113,7 @@ public class CinemaApplication {
 			));
 			movieService.addMovie(new Movie("1+1",
 					"Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники человека, который менее всего подходит для этой работы, – молодого жителя предместья Дрисса, только что освободившегося из тюрьмы. Несмотря на то, что Филипп прикован к инвалидному креслу, Дриссу удается привнести в размеренную жизнь аристократа дух приключений.",
-					"empty",
+					"/images/movie/1+1.webp",
 					Genre.DRAMA,
 					"Франция",
 					"2011",
@@ -126,7 +126,7 @@ public class CinemaApplication {
 			));
 			movieService.addMovie(new Movie("Криминальное чтиво",
 					"Двое бандитов Винсент Вега и Джулс Винфилд ведут философские беседы в перерывах между разборками и решением проблем с должниками криминального босса Марселласа Уоллеса. В первой истории Винсент проводит незабываемый вечер с женой Марселласа Мией. Во второй рассказывается о боксёре Бутче Кулидже, купленном Уоллесом, чтобы сдать бой. В третьей истории Винсент и Джулс по нелепой случайности попадают в неприятности.",
-					"empty",
+					"/images/movie/kriminal_chtivo.webp",
 					Genre.CRIME,
 					"США",
 					"1994",

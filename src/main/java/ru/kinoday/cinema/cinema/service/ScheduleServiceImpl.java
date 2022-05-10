@@ -17,12 +17,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     private TicketService ticketService;
 
     public List<ScheduleElement> getSchedule(Timestamp dateFrom) {
-        return repo.findAllByTimeAfterOrderByTime(dateFrom);
+        return repo.findAllByStartTimeAfterOrderByStartTime(dateFrom);
     }
 
     @Override
     public Schedule getSchedule(Timestamp from, Timestamp to, long cinemaId) {
-        List<ScheduleElement> list = repo.findAllByTimeAfterAndTimeBeforeAndCinemaId(from, to, cinemaId);
+        List<ScheduleElement> list = repo.findAllByStartTimeAfterAndStartTimeBeforeAndCinemaId(from, to, cinemaId);
 
         Map<Long, List<ScheduleElementDTO>> data = new HashMap<>();
         Map<Long, Movie> movies = new HashMap<>();

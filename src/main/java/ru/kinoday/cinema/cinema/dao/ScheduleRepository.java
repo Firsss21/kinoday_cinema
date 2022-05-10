@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<ScheduleElement, Long> {
-    public List<ScheduleElement> findAllByTimeAfterOrderByTime(Timestamp timestamp);
+    public List<ScheduleElement> findAllByStartTimeAfterOrderByStartTime(Timestamp timestamp);
 
-    public List<ScheduleElement> findAllByTimeAfterAndTimeBeforeAndCinemaId(Timestamp from, Timestamp to, long cinemaId);
+    public List<ScheduleElement> findAllByStartTimeAfterAndStartTimeBeforeAndCinemaId(Timestamp from, Timestamp to, long cinemaId);
 }

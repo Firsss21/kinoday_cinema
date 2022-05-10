@@ -1,10 +1,7 @@
 package ru.kinoday.cinema.cinema.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kinoday.cinema.cinema.model.Movie;
 import ru.kinoday.cinema.cinema.service.MovieService;
 
@@ -26,4 +23,10 @@ public class MovieController {
     public List<Movie> getLastMovies(@RequestParam(defaultValue = "5") int count) {
         return movieService.getLastMovies(count);
     }
+
+    @GetMapping(value = "/{id}")
+    public Movie getMovie(@PathVariable long id) {
+        return movieService.getMovie(id);
+    }
+
 }

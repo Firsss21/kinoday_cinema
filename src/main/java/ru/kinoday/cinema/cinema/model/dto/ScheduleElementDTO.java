@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Value
 public class ScheduleElementDTO {
     Long id;
-    Timestamp time;
+    Timestamp start;
+    Timestamp end;
     CinemaHall hall;
     Format format;
     int price;
@@ -18,7 +19,8 @@ public class ScheduleElementDTO {
     public static ScheduleElementDTO of(ScheduleElement element) {
         return new ScheduleElementDTO(
                 element.getId(),
-                element.getTime(),
+                element.getStartTime(),
+                element.getEndTime(),
                 element.getHall(),
                 element.getFormat(),
                 element.getPrice()

@@ -1,9 +1,7 @@
 package ru.kinoday.cinema.cinema.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,7 +16,10 @@ public class ScheduleElement {
     Long id;
 
     @Column
-    Timestamp time;
+    Timestamp startTime;
+
+    @Column
+    Timestamp endTime;
 
     @ManyToOne
     @JoinColumn(name = "cinema_id")
@@ -38,12 +39,23 @@ public class ScheduleElement {
     @Column
     int price;
 
-    public ScheduleElement(Timestamp time, Cinema cinema, CinemaHall hall, Movie movie, Format format, int price) {
-        this.time = time;
+    public ScheduleElement(Timestamp start, Cinema cinema, CinemaHall hall, Movie movie, Format format, int price, long adTime) {
+        this.startTime = start;
         this.cinema = cinema;
         this.hall = hall;
         this.movie = movie;
         this.format = format;
         this.price = price;
+        this.endTime = new Timestamp(this.startTime.getTime() + movie.getDuration() + adTime);
+    }
+
+    public ScheduleElement(Timestamp start, Cinema cinema, CinemaHall hall, Movie movie, Format format, int price) {
+        this.startTime = start;
+        this.cinema = cinema;
+        this.hall = hall;
+        this.movie = movie;
+        this.format = format;
+        this.price = price;
+        this.endTime = new Timestamp(this.startTime.getTime() + movie.getDuration() + 600_000L);
     }
 }
