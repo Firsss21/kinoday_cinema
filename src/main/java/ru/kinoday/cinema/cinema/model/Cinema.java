@@ -21,7 +21,7 @@ public class Cinema {
     @OneToMany
     private List<CinemaHall> cinemaHallList;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @Column(name = "image_path")
