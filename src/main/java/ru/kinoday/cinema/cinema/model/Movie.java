@@ -2,8 +2,10 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Value;
 import org.hibernate.annotations.CreationTimestamp;
+import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -46,8 +48,8 @@ public class Movie {
     @Column
     private String director;
 
-    @Column(name = "description_images")
-    private String[] descriptionImages;
+//    @Column(name = "description_images")
+//    private String[] descriptionImages;
 
     @Column
     private String trailer;
@@ -58,7 +60,7 @@ public class Movie {
     @Column(name = "kp_id")
     private int kinopoiskId;
 
-    public Movie(String name, String description, String mainImagePath, Genre genre, String country, String year, Long duration, String director, String[] descriptionImages, String trailer, int ageRating, int kinopoiskId) {
+    public Movie(String name, String description, String mainImagePath, Genre genre, String country, String year, Long duration, String director, String trailer, int ageRating, int kinopoiskId) {
         this.name = name;
         this.description = description;
         this.mainImagePath = mainImagePath;
@@ -67,9 +69,12 @@ public class Movie {
         this.year = year;
         this.duration = duration;
         this.director = director;
-        this.descriptionImages = descriptionImages;
         this.trailer = trailer;
         this.ageRating = ageRating;
         this.kinopoiskId = kinopoiskId;
+    }
+
+    public MovieDTO toDto() {
+        return null;
     }
 }

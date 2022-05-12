@@ -2,8 +2,8 @@ package ru.kinoday.cinema.cinema.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.kinoday.cinema.cinema.model.Movie;
-import ru.kinoday.cinema.cinema.service.MovieService;
+import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
+import ru.kinoday.cinema.cinema.service.MovieDtoService;
 
 import java.util.List;
 
@@ -12,20 +12,20 @@ import java.util.List;
 @AllArgsConstructor
 public class MovieController {
 
-    private MovieService movieService;
+    private MovieDtoService movieService;
 
     @GetMapping(value = "/")
-    public List<Movie> getAll() {
+    public List<MovieDTO> getAll() {
         return movieService.getMovies();
     }
 
     @GetMapping("/last/")
-    public List<Movie> getLastMovies(@RequestParam(defaultValue = "5") int count) {
+    public List<MovieDTO> getLastMovies(@RequestParam(defaultValue = "5") int count) {
         return movieService.getLastMovies(count);
     }
 
     @GetMapping(value = "/{id}")
-    public Movie getMovie(@PathVariable long id) {
+    public MovieDTO getMovie(@PathVariable long id) {
         return movieService.getMovie(id);
     }
 

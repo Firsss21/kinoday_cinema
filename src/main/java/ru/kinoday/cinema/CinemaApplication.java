@@ -36,7 +36,8 @@ public class CinemaApplication {
 			@Autowired ScheduleService scheduleService,
 			@Autowired TicketService ticketService,
 			@Autowired CinemaHallService cinemaHallService,
-			@Autowired PlaceService placeService
+			@Autowired PlaceService placeService,
+			@Autowired KinopoiskService kinopoiskService
 			) {
 		return args -> {
 
@@ -76,10 +77,9 @@ public class CinemaApplication {
 					Genre.DRAMA,
 					"США",
 					"1994",
-					142 * 60 * 60 * 1000L,
+					142 * 60 * 1000L,
 					"Фрэнк Дарабонт",
-					new String[]{""},
-					"skip",
+					"https://www.youtube.com/embed/kgAeKpAPOYk",
 					16,
                     326
 					));
@@ -90,10 +90,9 @@ public class CinemaApplication {
 					Genre.DRAMA,
 					"США",
 					"1999",
-					189 * 60 * 60 * 1000L,
+					189 * 60 * 1000L,
 					"Фрэнк Дарабонт",
-					new String[]{""},
-					"skip",
+					"https://www.youtube.com/embed/TODt_q-_4C4",
 					16,
                     435
 			));
@@ -104,10 +103,9 @@ public class CinemaApplication {
 					Genre.DRAMA,
 					"США",
 					"1994",
-					142 * 60 * 60 * 1000L,
+					142 * 60 * 1000L,
 					"Роберт Земекис",
-					new String[]{""},
-					"skip",
+					"https://www.youtube.com/embed/otmeAaifX04",
 					16,
                     448
 			));
@@ -117,10 +115,9 @@ public class CinemaApplication {
 					Genre.DRAMA,
 					"Франция",
 					"2011",
-					112 * 60 * 60 * 1000L,
+					112 * 60 * 1000L,
 					"Оливье Накаш",
-					new String[]{""},
-					"skip",
+					"https://www.youtube.com/embed/tTwFeGArcrs",
 					16,
                     535341
 			));
@@ -130,10 +127,9 @@ public class CinemaApplication {
 					Genre.CRIME,
 					"США",
 					"1994",
-					154 * 60 * 60 * 1000L,
+					154 * 60 * 1000L,
 					"Квентин Тарантино",
-					new String[]{""},
-					"skip",
+					"https://www.youtube.com/embed/vBADUmfa9Q4",
 					18,
                     342
 			));

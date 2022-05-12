@@ -1,14 +1,17 @@
 package ru.kinoday.cinema.cinema.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.MovieRepository;
 import ru.kinoday.cinema.cinema.model.Movie;
+import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
