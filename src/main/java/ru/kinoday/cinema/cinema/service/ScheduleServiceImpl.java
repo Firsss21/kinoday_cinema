@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.ScheduleRepository;
 import ru.kinoday.cinema.cinema.model.*;
+import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private ScheduleRepository repo;
     private TicketService ticketService;
+    private MovieDtoService movieService;
 
     public List<ScheduleElement> getSchedule(Timestamp dateFrom) {
         return repo.findAllByStartTimeAfterOrderByStartTime(dateFrom);
@@ -22,15 +24,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Schedule getSchedule(Timestamp from, Timestamp to, long cinemaId) {
-        List<ScheduleElement> list = repo.findAllByStartTimeAfterAndStartTimeBeforeAndCinemaId(from, to, cinemaId);
+        List<ScheduleElement> list = repo.findAllByStartTimeAfterAndStartTimeBeforeAndCinemaIdOrderByStartTime(from, to, cinemaId);
 
         Map<Long, List<ScheduleElementDTO>> data = new HashMap<>();
-        Map<Long, Movie> movies = new HashMap<>();
+        Map<Long, MovieDTO> movies = new HashMap<>();
         for (ScheduleElement scheduleElement : list) {
             Movie movie = scheduleElement.getMovie();
             if (!data.containsKey(movie.getId())) {
                 data.put(movie.getId(), new ArrayList<>());
-                movies.put(movie.getId(), movie);
+                movies.put(movie.getId(), movieService.toDto(movie));
             }
 
             data.get(movie.getId()).add(ScheduleElementDTO.of(scheduleElement));

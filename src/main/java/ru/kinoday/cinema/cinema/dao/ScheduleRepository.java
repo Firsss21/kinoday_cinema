@@ -11,5 +11,5 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<ScheduleElement, Long> {
     public List<ScheduleElement> findAllByStartTimeAfterOrderByStartTime(Timestamp timestamp);
 
-    public List<ScheduleElement> findAllByStartTimeAfterAndStartTimeBeforeAndCinemaId(Timestamp from, Timestamp to, long cinemaId);
+    public List<ScheduleElement> findAllByStartTimeAfterAndStartTimeBeforeAndCinemaIdOrderByStartTime(Timestamp from, Timestamp to, long cinemaId);
 }

@@ -2,6 +2,7 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Data;
 import lombok.Value;
+import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 
 import java.sql.Timestamp;
@@ -17,7 +18,7 @@ public class Schedule {
 
    long cinemaId;
 
-   Map<Long, Movie> movies;
+   Map<Long, MovieDTO> movies;
 
    Map<Long, List<ScheduleElementDTO>> data;
 }

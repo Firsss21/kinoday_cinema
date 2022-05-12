@@ -39,7 +39,7 @@ public class MovieDtoService {
     @Cacheable(value = "movie")
     public MovieDTO getMovie(long id) { return toDto(service.getMovie(id)); }
 
-    private MovieDTO toDto(Movie toDto) {
+    public MovieDTO toDto(Movie toDto) {
         if (toDto == null)
             return null;
 
@@ -62,7 +62,7 @@ public class MovieDtoService {
         );
     }
 
-    private List<MovieDTO> toDto(List<Movie> list) {
+    public List<MovieDTO> toDto(List<Movie> list) {
         return list.stream().map(this::toDto).collect(Collectors.toList());
     }
 

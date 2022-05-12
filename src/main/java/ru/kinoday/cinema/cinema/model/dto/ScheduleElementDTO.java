@@ -10,8 +10,8 @@ import java.sql.Timestamp;
 @Value
 public class ScheduleElementDTO {
     Long id;
-    Timestamp start;
-    Timestamp end;
+    Timestamp startTime;
+    Timestamp endTime;
     CinemaHall hall;
     Format format;
     int price;

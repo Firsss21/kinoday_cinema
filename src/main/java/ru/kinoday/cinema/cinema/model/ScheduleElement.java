@@ -1,5 +1,6 @@
 package ru.kinoday.cinema.cinema.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @Getter
+@Data
 public class ScheduleElement {
 
     @Id
