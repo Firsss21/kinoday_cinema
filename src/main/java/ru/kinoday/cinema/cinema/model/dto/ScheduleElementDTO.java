@@ -15,6 +15,7 @@ public class ScheduleElementDTO {
     CinemaHall hall;
     Format format;
     int price;
+    boolean started;
 
     public static ScheduleElementDTO of(ScheduleElement element) {
         return new ScheduleElementDTO(
@@ -23,7 +24,8 @@ public class ScheduleElementDTO {
                 element.getEndTime(),
                 element.getHall(),
                 element.getFormat(),
-                element.getPrice()
+                element.getPrice(),
+                element.getStartTime().after(new Timestamp(System.currentTimeMillis()))
         );
     }
 }
