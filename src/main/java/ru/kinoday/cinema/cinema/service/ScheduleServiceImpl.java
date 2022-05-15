@@ -18,7 +18,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private TicketService ticketService;
     private MovieDtoService movieService;
 
-    public List<ScheduleElement> getSchedule(Timestamp dateFrom) {
+    public List<ScheduleElement> getScheduleElement(Timestamp dateFrom) {
         return repo.findAllByStartTimeAfterOrderByStartTime(dateFrom);
     }
 
@@ -39,6 +39,15 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
 
         return new Schedule(from, to, cinemaId, movies, data);
+    }
+
+    @Override
+    public ScheduleElement getScheduleElement(long scheduleId) {
+        Optional<ScheduleElement> byId = repo.findById(scheduleId);
+        if (byId.isPresent())
+            return byId.get();
+        else
+            return null;
     }
 
     @Override

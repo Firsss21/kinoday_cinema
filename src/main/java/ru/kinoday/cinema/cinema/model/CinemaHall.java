@@ -2,6 +2,7 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +13,7 @@ import static java.lang.Boolean.TRUE;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class CinemaHall {
 
     @Id

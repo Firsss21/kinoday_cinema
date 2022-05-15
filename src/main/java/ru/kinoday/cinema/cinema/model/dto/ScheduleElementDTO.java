@@ -25,7 +25,7 @@ public class ScheduleElementDTO {
                 element.getHall(),
                 element.getFormat(),
                 element.getPrice(),
-                element.getStartTime().after(new Timestamp(System.currentTimeMillis()))
+                element.getStartTime().before(new Timestamp(System.currentTimeMillis()))
         );
     }
 }
