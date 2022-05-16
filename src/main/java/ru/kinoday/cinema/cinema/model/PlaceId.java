@@ -1,9 +1,6 @@
 package ru.kinoday.cinema.cinema.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -13,6 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 @Getter
+@ToString
 public class PlaceId implements Serializable {
     private int place;
     private int row;

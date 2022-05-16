@@ -2,19 +2,21 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Value;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.stereotype.Component;
 import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Getter
+@ToString
+@Component
 @NoArgsConstructor
 public class Movie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -48,9 +50,6 @@ public class Movie {
     @Column
     private String director;
 
-//    @Column(name = "description_images")
-//    private String[] descriptionImages;
-
     @Column
     private String trailer;
 
@@ -74,7 +73,21 @@ public class Movie {
         this.kinopoiskId = kinopoiskId;
     }
 
-    public MovieDTO toDto() {
-        return null;
+    public MovieDTO toDtoWithoutRating() {
+        return new MovieDTO(
+                this.getId(),
+                this.getName(),
+                this.getDescription(),
+                this.getMainImagePath(),
+                this.getGenre(),
+                this.getCountry(),
+                this.getYear(),
+                this.getDuration(),
+                this.getDirector(),
+                this.getTrailer(),
+                this.getAgeRating(),
+                0f,
+                0f
+        );
     }
 }

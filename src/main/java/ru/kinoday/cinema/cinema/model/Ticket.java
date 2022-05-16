@@ -2,8 +2,10 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 import ru.kinoday.cinema.cinema.model.dto.TicketDTO;
+import ru.kinoday.cinema.cinema.service.MovieDtoService;
 
 import javax.persistence.*;
 

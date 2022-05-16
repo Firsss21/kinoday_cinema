@@ -35,7 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 movies.put(movie.getId(), movieService.toDto(movie));
             }
 
-            data.get(movie.getId()).add(ScheduleElementDTO.of(scheduleElement));
+            data.get(movie.getId()).add(ScheduleElementDTO.of(scheduleElement, movieService));
         }
 
         return new Schedule(from, to, cinemaId, movies, data);
@@ -82,7 +82,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             ticketPlace.setCanOrder(ticket.getType() == TicketType.AVAILABLE);
         }
 
-        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule), movieService.toDto(schedule.getMovie()), ScheduleElementDTO.of(schedule).isStarted());
+        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule, movieService), movieService.toDto(schedule.getMovie()), ScheduleElementDTO.of(schedule, movieService).isStarted());
     }
 
     private Map<Integer, Map<Integer, TicketPlace>> fillEmpty(ScheduleElement schedule) {

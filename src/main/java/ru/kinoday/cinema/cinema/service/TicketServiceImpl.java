@@ -52,7 +52,7 @@ public class TicketServiceImpl implements TicketService {
             return new ArrayList<>();
 
         for (Place place : order.getTickets()) {
-            tickets.add(ticketRepository.save(new Ticket(el, place, TicketType.BOOKED, randomGenerator.getRandomAlphabeticString(), email)));
+            tickets.add(ticketRepository.save(new Ticket(el, place, TicketType.BOOKED, randomGenerator.getRandomAlphabeticString(6), email)));
         }
 
         return tickets;

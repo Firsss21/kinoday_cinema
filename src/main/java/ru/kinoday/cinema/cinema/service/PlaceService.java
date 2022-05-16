@@ -49,8 +49,8 @@ public class PlaceService {
         int places = 0;
         switch (cinemaHallType) {
             case BIG:{
-                rows = 15;
-                places = 25;
+                rows = 12;
+                places = 18;
                 break;
             }
             case VIP:{
@@ -59,13 +59,13 @@ public class PlaceService {
                 break;
             }
             case SMALL:{
-                rows = 8;
-                places = 12;
+                rows = 7;
+                places = 10;
                 break;
             }
             case MEDIUM:{
-                rows = 12;
-                places = 16;
+                rows = 10;
+                places = 15;
                 break;
             }
         }

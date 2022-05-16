@@ -8,9 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.MovieRepository;
+import ru.kinoday.cinema.cinema.model.KinopoiskResponse;
 import ru.kinoday.cinema.cinema.model.Movie;
 import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.stream.Collectors;
 
