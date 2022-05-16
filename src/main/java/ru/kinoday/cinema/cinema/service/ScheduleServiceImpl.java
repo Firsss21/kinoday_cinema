@@ -82,7 +82,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             ticketPlace.setCanOrder(ticket.getType() == TicketType.AVAILABLE);
         }
 
-        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule), movieService.toDto(schedule.getMovie()));
+        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule), movieService.toDto(schedule.getMovie()), ScheduleElementDTO.of(schedule).isStarted());
     }
 
     private Map<Integer, Map<Integer, TicketPlace>> fillEmpty(ScheduleElement schedule) {

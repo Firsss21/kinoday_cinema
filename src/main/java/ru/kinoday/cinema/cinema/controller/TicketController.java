@@ -2,8 +2,10 @@ package ru.kinoday.cinema.cinema.controller;
 
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kinoday.cinema.cinema.model.Order;
+import ru.kinoday.cinema.cinema.model.Payment;
 import ru.kinoday.cinema.cinema.model.ScheduleElement;
 import ru.kinoday.cinema.cinema.model.Ticket;
 import ru.kinoday.cinema.cinema.model.dto.TicketDTO;
@@ -37,7 +39,23 @@ public class TicketController {
     }
 
     @GetMapping("/pay")
-    public String getPaymentLink(@RequestParam(name = "ticketIds", required = false) long[] ticketIds){
-        return ticketService.getPaymentLink(ticketIds);
+    public String getPaymentLink(@RequestParam(name = "ticketIds", required = false) long[] ticketIds, @RequestParam long uid){
+        return ticketService.getPaymentLink(ticketIds, uid);
     }
+
+    @GetMapping("/user/{uid}")
+    public ResponseEntity<Boolean> userExist(@PathVariable long uid) {
+        return ticketService.userExist(uid);
+    }
+
+    @PostMapping(value = "/payment/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Long> processNewPayment(@RequestBody(required = true) String body) {
+        Payment payment = gson.fromJson(body, Payment.class);
+        if (ticketService.processPayment(payment)) {
+            return ResponseEntity.ok(payment.getUid());
+        } else {
+            return ResponseEntity.badRequest().body(0L);
+        }
+    }
+
 }

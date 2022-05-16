@@ -16,6 +16,7 @@ public class Show {
     private Long cinemaId;
     private ScheduleElementDTO scheduleElement;
     private MovieDTO movie;
+    private boolean started;
 
     public static Show empty() {
         return null;

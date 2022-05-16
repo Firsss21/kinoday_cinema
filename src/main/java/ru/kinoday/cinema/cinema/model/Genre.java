@@ -12,4 +12,9 @@ public enum Genre {
     SCIENCE,
     ANIMATION,
     WESTERN,
+
+    COMEDY,
+    BIOGRAPHY,
+    DETECTIVE,
+    ;
 }
