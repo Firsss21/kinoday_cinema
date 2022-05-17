@@ -41,6 +41,9 @@ public class CinemaApplication {
 			) {
 		return args -> {
 
+			if (true)
+				return;
+
 			List<CinemaHall> big = List.of(
 				cinemaHallService.addCinemaHall(new CinemaHall("01", CinemaHallType.BIG, placeService.getPlacesForHallType(CinemaHallType.BIG), Set.of(Format.type_3D_IMAX, Format.type_2D_ATMOS, Format.type_3D_ATMOS))),
 				cinemaHallService.addCinemaHall(new CinemaHall("02", CinemaHallType.VIP, placeService.getPlacesForHallType(CinemaHallType.VIP), Set.of(Format.type_3D_ATMOS, Format.type_2D_ATMOS))),

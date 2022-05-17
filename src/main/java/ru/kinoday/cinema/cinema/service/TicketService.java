@@ -23,6 +23,10 @@ public interface TicketService {
 
     boolean processPayment(Payment payment);
 
+    Ticket getTicketByHash(String hash);
+
+    Ticket useTicket(Long id);
+
 //    BOOKED,
 //    PROCESSING,
 //    PURCHASED,

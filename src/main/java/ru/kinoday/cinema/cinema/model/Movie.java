@@ -71,6 +71,7 @@ public class Movie {
         this.trailer = trailer;
         this.ageRating = ageRating;
         this.kinopoiskId = kinopoiskId;
+        this.added = new Date();
     }
 
     public MovieDTO toDtoWithoutRating() {

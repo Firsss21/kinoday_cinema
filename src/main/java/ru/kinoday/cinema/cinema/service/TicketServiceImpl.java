@@ -13,8 +13,10 @@ import ru.kinoday.cinema.util.EmailService;
 import ru.kinoday.cinema.util.RandomGenerator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.kinoday.cinema.cinema.model.TicketType.PURCHASED;
+import static ru.kinoday.cinema.cinema.model.TicketType.USED;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -51,7 +53,9 @@ public class TicketServiceImpl implements TicketService {
         if (el == null)
             return new ArrayList<>();
 
-        for (Place place : order.getTickets()) {
+        List<Place> places = order.getTickets().stream().map(PlaceDto::toPlace).collect(Collectors.toList());
+
+        for (Place place : places) {
             tickets.add(ticketRepository.save(new Ticket(el, place, TicketType.BOOKED, randomGenerator.getRandomAlphabeticString(6), email)));
         }
 
@@ -154,5 +158,20 @@ public class TicketServiceImpl implements TicketService {
         emailService.sendSimpleMessage(payment.getEmail(), "Ваши билеты в кинотеатр! КиноДень",
                 "Вы приобрели билеты: " + payment.getTicketIds().toString());
         return true;
+    }
+
+    @Override
+    public Ticket getTicketByHash(String hash) {
+        System.out.println(hash);
+        return ticketRepository.findAllByPersonalHashCode(hash);
+    }
+
+    @Override
+    public Ticket useTicket(Long id) {
+        Optional<Ticket> byId = ticketRepository.findById(id);
+        Ticket ticket = byId.get();
+        ticket.setType(USED);
+        ticketRepository.save(ticket);
+        return ticket;
     }
 }

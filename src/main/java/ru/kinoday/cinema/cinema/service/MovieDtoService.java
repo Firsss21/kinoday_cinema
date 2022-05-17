@@ -23,19 +23,20 @@ public class MovieDtoService {
     private MovieService service;
     private KinopoiskService kinopoiskService;
 
+    @CacheEvict(value = "movie", allEntries = true)
     public void addMovie(Movie movie) {
         service.addMovie(movie);
-        evictCache();
     }
 
+    @CacheEvict(value = "movie", allEntries = true)
     public void editMovie(Movie movie) {
         service.editMovie(movie);
         evictCache();
     }
 
+    @CacheEvict(value = "movie", allEntries = true)
     public void deleteMovie(long id) {
         service.deleteMovie(id);
-        evictCache();
     }
 
     @Cacheable(value = "movie")

@@ -1,14 +1,17 @@
 package ru.kinoday.cinema.cinema.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.ScheduleRepository;
 import ru.kinoday.cinema.cinema.model.*;
 import ru.kinoday.cinema.cinema.model.dto.MovieDTO;
+import ru.kinoday.cinema.cinema.model.dto.NewScheduleDto;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,7 +19,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private ScheduleRepository repo;
     private TicketService ticketService;
-    private MovieDtoService movieService;
+    private MovieDtoService movieDtoService;
+    private MovieService movieService;
+    private CinemaHallService cinemaHallService;
+    private CinemaService cinemaService;
 
     public List<ScheduleElement> getScheduleElement(Timestamp dateFrom) {
         return repo.findAllByStartTimeAfterOrderByStartTime(dateFrom);
@@ -32,10 +38,10 @@ public class ScheduleServiceImpl implements ScheduleService {
             Movie movie = scheduleElement.getMovie();
             if (!data.containsKey(movie.getId())) {
                 data.put(movie.getId(), new ArrayList<>());
-                movies.put(movie.getId(), movieService.toDto(movie));
+                movies.put(movie.getId(), movieDtoService.toDto(movie));
             }
 
-            data.get(movie.getId()).add(ScheduleElementDTO.of(scheduleElement, movieService));
+            data.get(movie.getId()).add(ScheduleElementDTO.of(scheduleElement, movieDtoService));
         }
 
         return new Schedule(from, to, cinemaId, movies, data);
@@ -82,7 +88,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             ticketPlace.setCanOrder(ticket.getType() == TicketType.AVAILABLE);
         }
 
-        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule, movieService), movieService.toDto(schedule.getMovie()), ScheduleElementDTO.of(schedule, movieService).isStarted());
+        return new Show(places, schedule.getCinema().getId(), ScheduleElementDTO.of(schedule, movieDtoService), movieDtoService.toDto(schedule.getMovie()), ScheduleElementDTO.of(schedule, movieDtoService).isStarted());
     }
 
     private Map<Integer, Map<Integer, TicketPlace>> fillEmpty(ScheduleElement schedule) {
@@ -103,5 +109,41 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
 
         return emptyPlaces;
+    }
+
+    @Override
+    public ResponseEntity<String> addNewSchedule(NewScheduleDto newSchedule) {
+        Timestamp timestampStart = Timestamp.valueOf(newSchedule.getStartTime());
+        if (timestampStart.before(new Date())){
+            return ResponseEntity.badRequest().body("Укажите время, не раньше настоящего!");
+        }
+        Movie movie = movieService.getMovie(newSchedule.getMovieId());
+        CinemaHall cinemaHallById = cinemaHallService.getCinemaHallById(newSchedule.getCinemaHallId());
+        if (!cinemaHallById.getAvailableFormats().contains(newSchedule.getFormat())){
+            return ResponseEntity.badRequest().body("Зал \"" + cinemaHallById.getName() + "\" не поддерживает формат " + newSchedule.getFormat().name());
+        }
+        ScheduleElement scheduleElement = new ScheduleElement(
+                timestampStart,
+                cinemaService.getCinemaByCinemaHall(cinemaHallById),
+                cinemaHallById,
+                movie,
+                newSchedule.getFormat(),
+                Math.toIntExact(newSchedule.getPrice())
+        );
+
+        List<ScheduleElement> list = repo.findAllByStartTimeAfterAndStartTimeBeforeAndHallId(
+                scheduleElement.getStartTime(), scheduleElement.getEndTime(), scheduleElement.getHall().getId());
+        List<ScheduleElement> list2 = repo.findAllByEndTimeAfterAndEndTimeBeforeAndHallId(
+                scheduleElement.getStartTime(), scheduleElement.getEndTime(), scheduleElement.getHall().getId());
+
+        if (list.size() > 0){
+            return ResponseEntity.badRequest().body("Расписание на это время уже существует " + list.stream().map(ScheduleElement::getId).collect(Collectors.toList()));
+        }
+        if (list2.size() > 0){
+            return ResponseEntity.badRequest().body("Расписание на это время уже существует " + list2.stream().map(ScheduleElement::getId).collect(Collectors.toList()));
+        }
+
+        repo.save(scheduleElement);
+        return ResponseEntity.ok().body("Расписание добавлено");
     }
 }

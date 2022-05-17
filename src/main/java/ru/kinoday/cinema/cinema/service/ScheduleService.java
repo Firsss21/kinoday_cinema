@@ -1,8 +1,10 @@
 package ru.kinoday.cinema.cinema.service;
 
+import org.springframework.http.ResponseEntity;
 import ru.kinoday.cinema.cinema.model.Schedule;
 import ru.kinoday.cinema.cinema.model.ScheduleElement;
 import ru.kinoday.cinema.cinema.model.Show;
+import ru.kinoday.cinema.cinema.model.dto.NewScheduleDto;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 
 import java.sql.Timestamp;
@@ -16,4 +18,6 @@ public interface ScheduleService {
     void addSchedule(ScheduleElement element);
     List<ScheduleElement> getAllScheduled();
     void editSchedule(ScheduleElement element);
+
+    ResponseEntity<String> addNewSchedule(NewScheduleDto newSchedule);
 }

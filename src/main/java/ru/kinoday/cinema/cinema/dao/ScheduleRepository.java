@@ -12,4 +12,6 @@ public interface ScheduleRepository extends JpaRepository<ScheduleElement, Long>
     public List<ScheduleElement> findAllByStartTimeAfterOrderByStartTime(Timestamp timestamp);
 
     public List<ScheduleElement> findAllByStartTimeAfterAndStartTimeBeforeAndCinemaIdOrderByStartTime(Timestamp from, Timestamp to, long cinemaId);
+    public List<ScheduleElement> findAllByStartTimeAfterAndStartTimeBeforeAndHallId(Timestamp from, Timestamp to, long cinemaHallId);
+    public List<ScheduleElement> findAllByEndTimeAfterAndEndTimeBeforeAndHallId(Timestamp from, Timestamp to, long cinemaHallId);
 }

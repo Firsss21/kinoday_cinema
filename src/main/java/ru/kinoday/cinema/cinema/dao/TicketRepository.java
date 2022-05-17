@@ -11,4 +11,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findAllByScheduledId(long id);
     List<Ticket> findAllByEmail(String email);
+    Ticket findAllByPersonalHashCode(String hash);
 }

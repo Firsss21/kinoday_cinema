@@ -9,7 +9,7 @@ import java.util.List;
 public class Order {
     private Long scheduleId;
 
-    private List<Place> tickets;
+    private List<PlaceDto> tickets;
 
     boolean agreementAccepted;
 }

@@ -1,6 +1,7 @@
 package ru.kinoday.cinema.cinema.service;
 
 import ru.kinoday.cinema.cinema.model.Cinema;
+import ru.kinoday.cinema.cinema.model.CinemaHall;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ public interface CinemaService {
     void addCinema(Cinema cinema);
     void editCinema(Cinema cinema);
 
+    Cinema getCinemaByCinemaHall(CinemaHall cinemaHall);
 }

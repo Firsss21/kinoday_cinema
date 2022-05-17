@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kinoday.cinema.cinema.dao.CinemaRepository;
 import ru.kinoday.cinema.cinema.model.Cinema;
+import ru.kinoday.cinema.cinema.model.CinemaHall;
 
 import java.util.List;
 
@@ -33,5 +34,10 @@ public class CinemaServiceImplementation implements CinemaService {
     @Override
     public void editCinema(Cinema cinema) {
         repo.save(cinema);
+    }
+
+    @Override
+    public Cinema getCinemaByCinemaHall(CinemaHall cinemahall) {
+       return repo.findByCinemaHallListContains(cinemahall);
     }
 }
