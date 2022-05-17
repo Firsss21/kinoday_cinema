@@ -148,12 +148,15 @@ public class TicketServiceImpl implements TicketService {
         List<Ticket> tickets = new ArrayList<>();
         for (Long ticketId : payment.getTicketIds()) {
             Optional<Ticket> byId = ticketRepository.findById(ticketId);
-            if (byId.isPresent()) {
+            if (byId.isPresent() && byId.get().getType() != PURCHASED) {
                 byId.get().setType(PURCHASED);
                 ticketRepository.save(byId.get());
                 tickets.add(byId.get());
             }
         }
+
+        if (tickets.size() == 0)
+            return true;
 
         String msg = "Вы приобрели билеты: ";
 
