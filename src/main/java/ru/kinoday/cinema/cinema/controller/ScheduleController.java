@@ -43,4 +43,9 @@ public class ScheduleController {
 
         return ResponseEntity.badRequest().body("Неверное расписание");
     }
+
+    @DeleteMapping("/{sid}")
+    public void removeSchedule(@PathVariable("sid") long id) {
+        scheduleService.removeSchedule(id);
+    }
 }

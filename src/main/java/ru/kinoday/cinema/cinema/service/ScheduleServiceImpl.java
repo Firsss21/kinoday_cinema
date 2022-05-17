@@ -146,4 +146,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         repo.save(scheduleElement);
         return ResponseEntity.ok().body("Расписание добавлено");
     }
+
+    @Override
+    public void removeSchedule(long id) {
+        this.repo.deleteById(id);
+    }
 }

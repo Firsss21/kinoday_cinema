@@ -29,7 +29,6 @@ public class TicketController {
     public List<TicketDTO> bookTickets(@RequestParam(name = "email", required = true) String email, @RequestParam(name = "order", required = true) String order) {
         Order orderObj = gson.fromJson(order, Order.class);
         ScheduleElement el = scheduleService.getScheduleElement(orderObj.getScheduleId());
-        System.out.println(order);
         List<TicketDTO> res = ticketService.newTickets(orderObj, email, el).stream().map(Ticket::toDto).collect(Collectors.toList());
         return res;
     }
@@ -41,10 +40,7 @@ public class TicketController {
 
     @GetMapping("/hash")
     public TicketDTO getTicketsByHash(@RequestParam(name = "hash", required = true) String hash) {
-        System.out.println("start");
-        System.out.println(hash);
         Ticket ticketByHash = ticketService.getTicketByHash(hash);
-        System.out.println(ticketByHash);
         if (ticketByHash != null)
             return ticketByHash.toDto();
         else

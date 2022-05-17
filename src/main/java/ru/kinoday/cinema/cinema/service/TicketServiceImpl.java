@@ -2,6 +2,7 @@ package ru.kinoday.cinema.cinema.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -12,11 +13,13 @@ import ru.kinoday.cinema.cinema.model.*;
 import ru.kinoday.cinema.util.EmailService;
 import ru.kinoday.cinema.util.RandomGenerator;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static ru.kinoday.cinema.cinema.model.TicketType.PURCHASED;
-import static ru.kinoday.cinema.cinema.model.TicketType.USED;
+import static ru.kinoday.cinema.cinema.model.TicketType.*;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -133,7 +136,7 @@ public class TicketServiceImpl implements TicketService {
                     urlTemplate,
                     Boolean.class
             );
-        } catch (RestClientException e){
+        } catch (RestClientException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(false);
         }
@@ -151,18 +154,28 @@ public class TicketServiceImpl implements TicketService {
                 tickets.add(byId.get());
             }
         }
-        for (Ticket ticket : tickets) {
 
+        String msg = "Вы приобрели билеты: ";
+
+        for (Ticket ticket : tickets) {
+            String time = new SimpleDateFormat("dd MMM HH:mm").format(ticket.getScheduled().getStartTime());
+            msg += "\n\nКинотеатр: " + ticket.getScheduled().getCinema().getName() + ", " +
+                    "фильм: " + ticket.getScheduled().getMovie().getName() + ", " +
+                    "время " + time + ", " +
+                    "время " + ticket.getScheduled().getStartTime() + ", " +
+                    "\nПерсональный код, для подтверждения покупки билета [" + ticket.getPersonalHashCode() + "]. ";
         }
-        // send email for payment after new status
-        emailService.sendSimpleMessage(payment.getEmail(), "Ваши билеты в кинотеатр! КиноДень",
-                "Вы приобрели билеты: " + payment.getTicketIds().toString());
+
+        emailService.sendSimpleMessage(
+                payment.getEmail(),
+                "Кинодень - Ваши билеты в кинотеатр!",
+                msg
+        );
         return true;
     }
 
     @Override
     public Ticket getTicketByHash(String hash) {
-        System.out.println(hash);
         return ticketRepository.findAllByPersonalHashCode(hash);
     }
 
@@ -173,5 +186,40 @@ public class TicketServiceImpl implements TicketService {
         ticket.setType(USED);
         ticketRepository.save(ticket);
         return ticket;
+    }
+
+    @Scheduled(fixedDelay = 30 * 1000L)
+    private void updateTicketStatus() {
+        List<Ticket> all = ticketRepository.findAll();
+        for (Ticket ticket : all) {
+            switch (ticket.getType()) {
+                case PURCHASED: {
+                    long diff = ticket.getScheduled().getStartTime().getTime() - System.currentTimeMillis();//as given
+                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                    if (minutes < 15) {
+                        continue;
+                    }
+
+                    ticket.setType(EXPIRED);
+                    ticketRepository.save(ticket);
+                    break;
+                }
+
+                case BOOKED: {
+                    long diff = System.currentTimeMillis() - ticket.getScheduled().getStartTime().getTime();
+                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+
+                    long diffCreated = System.currentTimeMillis() - ticket.getAdded().getTime();
+                    long minutesCreatedAgo = TimeUnit.MILLISECONDS.toMinutes(diffCreated);
+
+                    if (minutes > 15 || minutesCreatedAgo < 5) {
+                        continue;
+                    }
+
+                    ticketRepository.delete(ticket);
+                    break;
+                }
+            }
+        }
     }
 }

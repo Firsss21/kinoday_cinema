@@ -14,10 +14,9 @@ public interface ScheduleService {
     Schedule getSchedule(Timestamp from, Timestamp to, long cinemaId);
     ScheduleElement getScheduleElement(long scheduleId);
     Show getShow(long id);
-
     void addSchedule(ScheduleElement element);
     List<ScheduleElement> getAllScheduled();
     void editSchedule(ScheduleElement element);
-
     ResponseEntity<String> addNewSchedule(NewScheduleDto newSchedule);
+    void removeSchedule(long id);
 }

@@ -2,12 +2,12 @@ package ru.kinoday.cinema.cinema.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.kinoday.cinema.cinema.model.dto.ScheduleElementDTO;
 import ru.kinoday.cinema.cinema.model.dto.TicketDTO;
-import ru.kinoday.cinema.cinema.service.MovieDtoService;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -32,6 +32,12 @@ public class Ticket {
 
     @Column
     private String email;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "added")
+    private Date added;
+
 
     public Ticket(ScheduleElement scheduled, Place place, TicketType type, String personalHashCode, String email) {
         this.scheduled = scheduled;
