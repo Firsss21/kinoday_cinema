@@ -2,6 +2,7 @@ package ru.kinoday.cinema.cinema.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.kinoday.cinema.cinema.dao.ScheduleRepository;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@EnableScheduling
 public class ScheduleServiceImpl implements ScheduleService {
 
     private ScheduleRepository repo;
@@ -156,8 +158,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    @Scheduled(cron = "40 10 * * 4")
+    @Scheduled(cron = "* 0 11 * * 4")
     public void fillSchedule() {
+        System.out.println("fill schedule");
         Cinema bigCinema = cinemaService.getAllCinema().get(0);
         Cinema mediumCinema = cinemaService.getAllCinema().get(1);
         Cinema smallCinema = cinemaService.getAllCinema().get(2);
