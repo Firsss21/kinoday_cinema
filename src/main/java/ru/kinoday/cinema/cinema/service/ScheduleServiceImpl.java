@@ -156,7 +156,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    @Scheduled(cron = "20 10 * * 4")
+    @Scheduled(cron = "40 10 * * 4")
     public void fillSchedule() {
         Cinema bigCinema = cinemaService.getAllCinema().get(0);
         Cinema mediumCinema = cinemaService.getAllCinema().get(1);
