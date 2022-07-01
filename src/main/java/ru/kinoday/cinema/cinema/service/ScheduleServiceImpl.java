@@ -1,6 +1,8 @@
 package ru.kinoday.cinema.cinema.service;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,6 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private MovieService movieService;
     private CinemaHallService cinemaHallService;
     private CinemaService cinemaService;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public List<ScheduleElement> getScheduleElement(Timestamp dateFrom) {
         return repo.findAllByStartTimeAfterOrderByStartTime(dateFrom);
@@ -157,87 +160,23 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.repo.deleteById(id);
     }
 
-
-    @Scheduled(cron = "* 0 11 * * 4")
+    @Scheduled(cron = "0 0 11 * * 4")
     public void fillSchedule() {
-        System.out.println("fill schedule");
-        Cinema bigCinema = cinemaService.getAllCinema().get(0);
-        Cinema mediumCinema = cinemaService.getAllCinema().get(1);
-        Cinema smallCinema = cinemaService.getAllCinema().get(2);
-        List<String> collect = movieService.getMovies().stream().map(Movie::getName).collect(Collectors.toList());
+        logger.info("fill schedule");
+        List<Long> movies = movieService.getMovies().stream().map(Movie::getId).collect(Collectors.toList());
         for (int i = 0; i < 7; i++) {
-            // -- 1st
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(1, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 250));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(4, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(10, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(13, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(16, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 600));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(19, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 700));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_IMAX, 900));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(2, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(5, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(11, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(14, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(17, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 900));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(20, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 700));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 900));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(3, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 250));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(6, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(12, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 350));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(15, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(18, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(21, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(0, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 600));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(3, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 250));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(6, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(12, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 350));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(15, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(18, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(21, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(0, 0, 0).plusDays(i)), bigCinema, bigCinema.getCinemaHallList().get(3), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 600));
-            // -- 2st
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(1, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(4, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(10, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(13, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(16, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(19, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(2, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 200));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(5, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 200));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(11, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(14, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(17, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(20, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 500));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(3, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 600));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(6, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 600));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(12, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 600));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(15, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 800));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(18, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 800));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(21, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 900));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(0, 0, 0).plusDays(i)), mediumCinema, mediumCinema.getCinemaHallList().get(2), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D_ATMOS, 900));
-            // - 3st
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(1, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(4, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(10, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(13, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 350));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(16, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 350));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(19, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(0), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(2, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(5, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(11, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 300));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(14, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 350));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(17, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 400));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(20, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_2D_ATMOS, 500));
-            this.addSchedule(new ScheduleElement(Timestamp.valueOf(LocalDate.now().atTime(22, 0, 0).plusDays(i)), smallCinema, smallCinema.getCinemaHallList().get(1), movieService.getMovie(collect.get(ThreadLocalRandom.current().nextInt(0, collect.size()))), Format.type_3D, 500));
-        }
+            for (Cinema cinema : cinemaService.getAllCinema()) {
+                for (CinemaHall cinemaHall : cinema.getCinemaHallList()) {
+                    int diff = ThreadLocalRandom.current().nextInt(0, 3);
+                    for (int hour = 0; hour <= 21; hour += 3) {
+                        Long movieId = movies.get(ThreadLocalRandom.current().nextInt(0, movies.size()));
+                        List<Format> formats = new ArrayList<>(cinemaHall.getAvailableFormats());
+                        Format format = formats.get(ThreadLocalRandom.current().nextInt(0, formats.size()));
+                        long price = 100 + (format.ordinal() * 50) + ((hour + diff) * 25);
+                        addNewSchedule(new NewScheduleDto(LocalDate.now().atTime(hour + diff, 0, 0).plusDays(i), cinemaHall.getId(), movieId, format, price));
+                    }
+                }
+            }
+         }
     }
 }
